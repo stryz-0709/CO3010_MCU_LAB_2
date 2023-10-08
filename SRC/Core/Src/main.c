@@ -174,6 +174,7 @@ int main(void)
   /* USER CODE BEGIN Init */
   setTimer1(50);
   setTimer2(100);
+  setTimer3(25);
   int num = 1;
   /* USER CODE END Init */
 
@@ -265,7 +266,7 @@ int main(void)
 		if (timer3_flag == 1){
 			update7SEG(index_led++);
 			index_led %= 4;
-			setTimer4(25);
+			setTimer3(15);
 		}
 	  /* USER CODE BEGIN 3 */
 	}
