@@ -232,11 +232,12 @@ int main(void)
 	  /* USER CODE END WHILE */
 	  if (timer1_flag == 1){
 		  update7SEG(index_led++);
-		  index_led %= 3;
-		  setTimer1(50);
+		  index_led %= 4;
+		  setTimer1(25);
 	  }
 	  if (timer2_flag == 1){
 		  HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
+		  HAL_GPIO_TogglePin(GPIOA, DOT_Pin);
 		  setTimer2(100);
 	  }
 

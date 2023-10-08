@@ -27,9 +27,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  0002000c  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00008628  00000000  00000000  00020035  2**0
+ 12 .debug_info   00008629  00000000  00000000  00020035  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00001620  00000000  00000000  0002865d  2**0
+ 13 .debug_abbrev 00001620  00000000  00000000  0002865e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  14 .debug_aranges 00000970  00000000  00000000  00029c80  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  000162b2  00000000  00000000  0002aea8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000949a  00000000  00000000  0004115a  2**0
+ 17 .debug_line   0000949b  00000000  00000000  0004115a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00081f81  00000000  00000000  0004a5f4  2**0
+ 18 .debug_str    00081f81  00000000  00000000  0004a5f5  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000cc575  2**0
+ 19 .comment      00000053  00000000  00000000  000cc576  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00002698  00000000  00000000  000cc5c8  2**2
+ 20 .debug_frame  00002698  00000000  00000000  000cc5cc  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -655,7 +655,7 @@ int main(void)
   MX_TIM2_Init();
  8000594:	f000 f87a 	bl	800068c <MX_TIM2_Init>
   HAL_TIM_Base_Start_IT(&htim2);
- 8000598:	4818      	ldr	r0, [pc, #96]	; (80005fc <main+0x90>)
+ 8000598:	4819      	ldr	r0, [pc, #100]	; (8000600 <main+0x94>)
  800059a:	f001 f979 	bl	8001890 <HAL_TIM_Base_Start_IT>
   const int MAX_LED = 4;
  800059e:	2304      	movs	r3, #4
@@ -664,7 +664,7 @@ int main(void)
  80005a2:	2300      	movs	r3, #0
  80005a4:	61fb      	str	r3, [r7, #28]
   int led_buffer [4] = {1, 2, 3, 4};
- 80005a6:	4b16      	ldr	r3, [pc, #88]	; (8000600 <main+0x94>)
+ 80005a6:	4b17      	ldr	r3, [pc, #92]	; (8000604 <main+0x98>)
  80005a8:	463c      	mov	r4, r7
  80005aa:	cb0f      	ldmia	r3, {r0, r1, r2, r3}
  80005ac:	e884 000f 	stmia.w	r4, {r0, r1, r2, r3}
@@ -674,10 +674,10 @@ int main(void)
 	{
 	  /* USER CODE END WHILE */
 	  if (timer1_flag == 1){
- 80005b0:	4b14      	ldr	r3, [pc, #80]	; (8000604 <main+0x98>)
+ 80005b0:	4b15      	ldr	r3, [pc, #84]	; (8000608 <main+0x9c>)
  80005b2:	681b      	ldr	r3, [r3, #0]
  80005b4:	2b01      	cmp	r3, #1
- 80005b6:	d115      	bne.n	80005e4 <main+0x78>
+ 80005b6:	d113      	bne.n	80005e0 <main+0x74>
 		  update7SEG(index_led++);
  80005b8:	69fb      	ldr	r3, [r7, #28]
  80005ba:	1c5a      	adds	r2, r3, #1
@@ -686,39 +686,39 @@ int main(void)
  80005c0:	4694      	mov	ip, r2
  80005c2:	4618      	mov	r0, r3
  80005c4:	f7ff ff52 	bl	800046c <update7SEG.5986>
-		  index_led %= 3;
- 80005c8:	69fa      	ldr	r2, [r7, #28]
- 80005ca:	4b0f      	ldr	r3, [pc, #60]	; (8000608 <main+0x9c>)
- 80005cc:	fb83 3102 	smull	r3, r1, r3, r2
- 80005d0:	17d3      	asrs	r3, r2, #31
- 80005d2:	1ac9      	subs	r1, r1, r3
- 80005d4:	460b      	mov	r3, r1
- 80005d6:	005b      	lsls	r3, r3, #1
- 80005d8:	440b      	add	r3, r1
- 80005da:	1ad3      	subs	r3, r2, r3
- 80005dc:	61fb      	str	r3, [r7, #28]
-		  setTimer1(50);
- 80005de:	2032      	movs	r0, #50	; 0x32
- 80005e0:	f000 f904 	bl	80007ec <setTimer1>
+		  index_led %= 4;
+ 80005c8:	69fb      	ldr	r3, [r7, #28]
+ 80005ca:	425a      	negs	r2, r3
+ 80005cc:	f003 0303 	and.w	r3, r3, #3
+ 80005d0:	f002 0203 	and.w	r2, r2, #3
+ 80005d4:	bf58      	it	pl
+ 80005d6:	4253      	negpl	r3, r2
+ 80005d8:	61fb      	str	r3, [r7, #28]
+		  setTimer1(25);
+ 80005da:	2019      	movs	r0, #25
+ 80005dc:	f000 f906 	bl	80007ec <setTimer1>
 	  }
 	  if (timer2_flag == 1){
- 80005e4:	4b09      	ldr	r3, [pc, #36]	; (800060c <main+0xa0>)
- 80005e6:	681b      	ldr	r3, [r3, #0]
- 80005e8:	2b01      	cmp	r3, #1
- 80005ea:	d1e1      	bne.n	80005b0 <main+0x44>
+ 80005e0:	4b0a      	ldr	r3, [pc, #40]	; (800060c <main+0xa0>)
+ 80005e2:	681b      	ldr	r3, [r3, #0]
+ 80005e4:	2b01      	cmp	r3, #1
+ 80005e6:	d1e3      	bne.n	80005b0 <main+0x44>
 		  HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
- 80005ec:	2120      	movs	r1, #32
- 80005ee:	4808      	ldr	r0, [pc, #32]	; (8000610 <main+0xa4>)
- 80005f0:	f000 fd08 	bl	8001004 <HAL_GPIO_TogglePin>
+ 80005e8:	2120      	movs	r1, #32
+ 80005ea:	4809      	ldr	r0, [pc, #36]	; (8000610 <main+0xa4>)
+ 80005ec:	f000 fd0a 	bl	8001004 <HAL_GPIO_TogglePin>
+		  HAL_GPIO_TogglePin(GPIOA, DOT_Pin);
+ 80005f0:	2110      	movs	r1, #16
+ 80005f2:	4807      	ldr	r0, [pc, #28]	; (8000610 <main+0xa4>)
+ 80005f4:	f000 fd06 	bl	8001004 <HAL_GPIO_TogglePin>
 		  setTimer2(100);
- 80005f4:	2064      	movs	r0, #100	; 0x64
- 80005f6:	f000 f90d 	bl	8000814 <setTimer2>
+ 80005f8:	2064      	movs	r0, #100	; 0x64
+ 80005fa:	f000 f90b 	bl	8000814 <setTimer2>
 	  if (timer1_flag == 1){
- 80005fa:	e7d9      	b.n	80005b0 <main+0x44>
- 80005fc:	20000038 	.word	0x20000038
- 8000600:	08002030 	.word	0x08002030
- 8000604:	2000002c 	.word	0x2000002c
- 8000608:	55555556 	.word	0x55555556
+ 80005fe:	e7d7      	b.n	80005b0 <main+0x44>
+ 8000600:	20000038 	.word	0x20000038
+ 8000604:	08002030 	.word	0x08002030
+ 8000608:	2000002c 	.word	0x2000002c
  800060c:	20000034 	.word	0x20000034
  8000610:	40010800 	.word	0x40010800
 
