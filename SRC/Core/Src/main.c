@@ -196,32 +196,32 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  if(timer2_flag == 1){
+	  if (timer2_flag == 1){
 		  HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
 		  setTimer2(100);
 	  }
-
-	  switch(num){
-		case 1:
-			display7SEG(num);
-			if(timer1_flag == 1){
-				HAL_GPIO_WritePin(GPIOA, EN0_Pin, SET);
-				HAL_GPIO_WritePin(GPIOA, EN1_Pin, RESET);
-				num = 2;
-				setTimer1(50);
-			}
-			break;
-		case 2:
-			display7SEG(num);
-			if(timer1_flag == 1){
-				HAL_GPIO_WritePin(GPIOA, EN0_Pin, RESET);
-				HAL_GPIO_WritePin(GPIOA, EN1_Pin, SET);
-				num = 1;
-				setTimer1(50);
-			}
-			break;
+	  switch (num){
+	  case 1:
+		  display7SEG(num);
+		  if (timer1_flag == 1){
+			  HAL_GPIO_WritePin(GPIOA, EN0_Pin, SET);
+			  HAL_GPIO_WritePin(GPIOA, EN1_Pin, RESET);
+			  num = 2;
+			  setTimer1(50);
+		  }
+		  break;
+	  case 2:
+		  display7SEG(num);
+		  if (timer1_flag == 1){
+			  HAL_GPIO_WritePin(GPIOA, EN0_Pin, RESET);
+			  HAL_GPIO_WritePin(GPIOA, EN1_Pin, SET);
+			  num = 1;
+			  setTimer1(50);
+		  }
+		  break;
+	  default:
+		  break;
 	  }
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
