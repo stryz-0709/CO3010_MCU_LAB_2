@@ -240,6 +240,40 @@ int main(void)
 	  }
   }
 
+  const int MAX_LED_MATRIX = 8;
+  int index_led_matrix = 0;
+  uint8_t matrix_buffer[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+  void updateLEDMatrix (int index){
+	  switch (index){
+	  case 0:
+		  HAL_GPIO_WritePin(GPIOA, ENM0_Pin, RESET);
+		  break;
+	  case 1:
+		  HAL_GPIO_WritePin(GPIOA, ENM1_Pin, RESET);
+		  break;
+	  case 2:
+		  HAL_GPIO_WritePin(GPIOA, ENM2_Pin, RESET);
+		  break;
+	  case 3:
+		  HAL_GPIO_WritePin(GPIOA, ENM3_Pin, RESET);
+		  break;
+	  case 4:
+		  HAL_GPIO_WritePin(GPIOA, ENM4_Pin, RESET);
+		  break;
+	  case 5:
+		  HAL_GPIO_WritePin(GPIOA, ENM5_Pin, RESET);
+		  break;
+	  case 6:
+		  HAL_GPIO_WritePin(GPIOA, ENM6_Pin, RESET);
+		  break;
+	  case 7:
+		  HAL_GPIO_WritePin(GPIOA, ENM7_Pin, RESET);
+		  break;
+	  default:
+		  break;
+	  }
+  }
+
 
   int hour = 15 , minute = 8 , second = 50;
   void updateClockBuffer(){
