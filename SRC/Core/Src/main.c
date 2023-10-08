@@ -288,12 +288,42 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	while (1)
-	{
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-	}
+  while (1)
+  {
+  	  /* USER CODE END WHILE */
+  		if (timer2_flag == 1){
+  			HAL_GPIO_TogglePin(GPIOA, DOT_Pin);
+  			HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
+  			setTimer2(100);
+  		}
+  		if (timer1_flag == 1){
+  			second ++;
+  			if (second >= 60){
+  				second = 0;
+  				minute ++;
+  			}
+  			if (minute >= 60){
+  				minute = 0;
+  				hour ++;
+  			}
+  			if (hour >= 24){
+  				hour = 0;
+  			}
+  			updateClockBuffer ();
+  			setTimer1(100);
+  		}
+  		if (timer3_flag == 1){
+  			update7SEG(index_led++);
+  			index_led %= MAX_LED;
+  			setTimer3(15);
+  		}
+  		if (timer4_flag == 1){
+  			updateLEDMatrix(index_led_matrix++);
+  			index_led % MAX_LED_MATRIX;
+  			setTimer4(10);
+  		}
+  	  /* USER CODE BEGIN 3 */
+  	}
   /* USER CODE END 3 */
 }
 
