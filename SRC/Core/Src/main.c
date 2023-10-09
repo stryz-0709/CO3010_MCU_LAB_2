@@ -311,27 +311,27 @@ int main(void)
 			HAL_GPIO_TogglePin(GPIOA, LED_RED_Pin);
 			setTimer2(100);
 		}
-//		if (timer1_flag == 1){
-//			second ++;
-//			if (second >= 60){
-//				second = 0;
-//				minute ++;
-//			}
-//			if (minute >= 60){
-//				minute = 0;
-//				hour ++;
-//			}
-//			if (hour >= 24){
-//				hour = 0;
-//			}
-//			updateClockBuffer ();
-//			setTimer1(100);
-//		}
-//		if (timer3_flag == 1){
-//			update7SEG(index_led++);
-//			index_led %= MAX_LED;
-//			setTimer3(15);
-//		}
+		if (timer1_flag == 1){
+			second ++;
+			if (second >= 60){
+				second = 0;
+				minute ++;
+			}
+			if (minute >= 60){
+				minute = 0;
+				hour ++;
+			}
+			if (hour >= 24){
+				hour = 0;
+			}
+			updateClockBuffer ();
+			setTimer1(100);
+		}
+		if (timer3_flag == 1){
+			update7SEG(index_led++);
+			index_led %= MAX_LED;
+			setTimer3(15);
+		}
 		if (timer4_flag == 1){
 			updateLEDMatrix(index_led_matrix++);
 			if (index_led_matrix >= MAX_LED_MATRIX){
