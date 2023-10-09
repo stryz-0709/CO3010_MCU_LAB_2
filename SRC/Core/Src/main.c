@@ -245,11 +245,34 @@ int main(void)
   uint16_t COL [8] = {ENM0_Pin, ENM1_Pin, ENM2_Pin, ENM3_Pin, ENM4_Pin, ENM5_Pin, ENM6_Pin, ENM7_Pin};
   uint16_t ROW [8] = {ROW0_Pin, ROW1_Pin, ROW2_Pin, ROW3_Pin, ROW4_Pin, ROW5_Pin, ROW6_Pin, ROW7_Pin};
   uint8_t matrix_buffer[8] = {0x00, 0x00, 0xFE, 0x11, 0x11, 0xFE, 0x00, 0x00};
+
   void displayLEDMatrix (uint8_t index){
 	  for (int i = 0; i < MAX_LED_MATRIX; i++){
 		  uint8_t bit = index >> i;
 		  if (bit & 1) HAL_GPIO_WritePin(GPIOB, ROW[i], RESET);
 	  }
+  }
+
+  void shift (int mode){
+	  uint8_t firstBit = matrix_buffer[0];
+	  uint8_t lastBit = matrix_buffer[MAX_LED_MATRIX];
+	  switch (mode){
+	  case 0:
+		  for (int i = 0; i < MAX_LED_MATRIX; i++){
+		  		matrix_buffer[i] = matrix_buffer[i+1];
+		  }
+		  matrix_buffer[MAX_LED_MATRIX - 1] = firstBit;
+		  break;
+//	  case 1:
+//		  for (int i = MAX_LED_MATRIX; i <= 1; i++){
+//				matrix_buffer[i] = matrix_buffer[i-1];
+//		  }
+//		  matrix_buffer[0] = lastBit;
+//		  break;
+	  default:
+		  break;
+	  }
+
   }
 
   void clearLEDMatrix(){
@@ -311,7 +334,10 @@ int main(void)
 //		}
 		if (timer4_flag == 1){
 			updateLEDMatrix(index_led_matrix++);
-			index_led %= MAX_LED_MATRIX;
+			if (index_led_matrix >= MAX_LED_MATRIX){
+				index_led_matrix %= MAX_LED_MATRIX;
+				shift(0);
+			}
 			setTimer4(5);
 		}
 	  /* USER CODE BEGIN 3 */
